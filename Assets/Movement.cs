@@ -18,26 +18,38 @@ public class Movement : MonoBehaviour
 
     Vector3 velocity;
     bool isGrounded;
+    private Animator animator;
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
         // jump
-        isGrounded = Physics.CheckSphere(
+        /*isGrounded = Physics.CheckSphere(
             groundCheck.position,
             groundDistance,
             groundMask
         );
 
-        if (isGrounded && velocity.y < 0)
+        /*if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
-        }
+        }*/
+
+        
 
         // Move
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * horizontal + transform.forward * vertical;
+
+        // Animation
+        bool isWalking = move.magnitude > 0.01f;
+        animator.SetBool("isWalking", isWalking);
 
         // Sprint
         float currentSpeed = movementSpeed;
