@@ -47,7 +47,7 @@ public class MobilePlayerController : MonoBehaviour
         Vector3 inputDir = new Vector3(horizontal, 0, vertical);
 
         bool isMoving = inputDir.sqrMagnitude > 0.01f;
-       // animator.SetBool("isWalking", isMoving);
+        animator.SetBool("isWalking", isMoving);
 
         if (isMoving)
         {
