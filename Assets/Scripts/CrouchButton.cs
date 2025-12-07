@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CrouchButton : MonoBehaviour
+public class CrouchButton : MonoBehaviour, IPointerDownHandler
 {
-    public bool toggled;
+    public bool pressed = false;
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        toggled = !toggled;
+        pressed = true;
     }
 }
