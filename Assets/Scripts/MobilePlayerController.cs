@@ -6,7 +6,10 @@ using UnityEngine.UI;
 public class MobilePlayerController : MonoBehaviour
 {
     public Joystick joystick;
-    public JumpButton jumpButton;
+
+    // ==== JUMP ====
+    public JumpButton jumpButton;    // skrip lama tetap dipakai
+    public Button jumpBtn;           // <-- tombol UI baru (Button)
 
     public float moveSpeed = 5f;
     public float rotationSpeed = 10f;
@@ -16,7 +19,7 @@ public class MobilePlayerController : MonoBehaviour
     public LayerMask groundMask;
 
     // ==== CROUCH ====
-    public CrouchButton crouchButton;
+    public Button crouchButton;
     public bool isCrouching = false;
 
     public float standHeight = 1.8f;
@@ -25,13 +28,19 @@ public class MobilePlayerController : MonoBehaviour
     public float crouchSpeed = 2.5f;
     private float originalSpeed;
 
+    // ==== SPRINT ====
+    public Button sprintButton;
+    public float sprintSpeed = 8f;
+    private bool sprinting = false;
+    private float currentSpeed;
+
     private CharacterController controller;
     private Transform cam;
-    private Vector3 direction;
 
     private Vector3 velocity;
-    private bool isGrounded;
+    private Vector3 direction;
 
+    private bool isGrounded;
     private Animator animator;
 
     void Start()
@@ -41,6 +50,15 @@ public class MobilePlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
 
         originalSpeed = moveSpeed;
+        currentSpeed = moveSpeed;
+
+        crouchButton.onClick.AddListener(ToggleCrouch);
+
+        // ==== JUMP BUTTON EVENT ====
+        jumpBtn.onClick.AddListener(JumpPress);
+
+        // ==== SPRINT BUTTON EVENT ====
+        sprintButton.onClick.AddListener(ToggleSprint);
     }
 
     void Update()
@@ -55,31 +73,6 @@ public class MobilePlayerController : MonoBehaviour
         if (isGrounded && velocity.y < 0)
             velocity.y = -2f;
 
-        // ==== HANDLE CROUCH ====
-        if (crouchButton.pressed)
-        {
-            isCrouching = !isCrouching;
-
-            if (isCrouching)
-            {
-                controller.height = crouchHeight;
-                moveSpeed = crouchSpeed;
-
-                animator.SetBool("isCrouching", true);
-                animator.SetTrigger("crouchDown");
-            }
-            else
-            {
-                controller.height = standHeight;
-                moveSpeed = originalSpeed;
-
-                animator.SetBool("isCrouching", false);
-                animator.SetTrigger("standUp");
-            }
-
-            crouchButton.pressed = false;
-        }
-
         // ==== INPUT JOYSTICK ====
         float horizontal = joystick.Horizontal;
         float vertical = joystick.Vertical;
@@ -87,16 +80,23 @@ public class MobilePlayerController : MonoBehaviour
         Vector3 inputDir = new Vector3(horizontal, 0, vertical);
         bool isMoving = inputDir.sqrMagnitude > 0.01f;
 
-        // ==== WALK STATE (NORMAL) ====
-        // ONLY WALK IF NOT CROUCHING
+        // NON-CROUCH WALK
         bool isWalking = !isCrouching && isMoving;
         animator.SetBool("isWalking", isWalking);
 
-        // ==== CROUCH WALK ====
+        // CROUCH WALK
         bool isCrouchWalking = isCrouching && isMoving;
         animator.SetBool("isCrouchWalking", isCrouchWalking);
 
-        // ==== MOVEMENT ====
+        // ==== SPRINT LOGIC ====
+        currentSpeed = moveSpeed;
+
+        if (sprinting && vertical > 0 && !isCrouching)
+        {
+            currentSpeed = sprintSpeed;
+        }
+
+        // === MOVEMENT ===
         if (isMoving)
         {
             Vector3 camForward = cam.forward;
@@ -111,7 +111,7 @@ public class MobilePlayerController : MonoBehaviour
             Vector3 moveDir = camForward * vertical + camRight * horizontal;
             direction = moveDir.normalized;
 
-            controller.Move(direction * moveSpeed * Time.deltaTime);
+            controller.Move(direction * currentSpeed * Time.deltaTime);
 
             Quaternion targetRot = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(
@@ -136,5 +136,46 @@ public class MobilePlayerController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         jumpButton.pressed = false;
+    }
+
+
+    // ============================
+    // ==== TOGGLE CROUCHING =====
+    // ============================
+    void ToggleCrouch()
+    {
+        isCrouching = !isCrouching;
+
+        if (isCrouching)
+        {
+            controller.height = crouchHeight;
+            moveSpeed = crouchSpeed;
+            animator.SetBool("isCrouching", true);
+
+            // Matikan sprint saat crouch
+            sprinting = false;
+        }
+        else
+        {
+            controller.height = standHeight;
+            moveSpeed = originalSpeed;
+            animator.SetBool("isCrouching", false);
+        }
+    }
+
+    // ==== JUMP BUTTON FUNCTION ====
+    void JumpPress()
+    {
+        jumpButton.pressed = true;
+    }
+
+    // ==== SPRINT BUTTON FUNCTION ====
+    void ToggleSprint()
+    {
+        sprinting = !sprinting;
+
+        // Tidak boleh sprint kalau crouch
+        if (isCrouching)
+            sprinting = false;
     }
 }
