@@ -1043,6 +1043,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b86fa9b0d60e6c84da4fcf27f3f54be8,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1124678613}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b86fa9b0d60e6c84da4fcf27f3f54be8,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1124678611}
   m_SourcePrefab: {fileID: 100100000, guid: b86fa9b0d60e6c84da4fcf27f3f54be8, type: 3}
 --- !u!1 &1124678607 stripped
@@ -1087,6 +1091,7 @@ MonoBehaviour:
   Enemy: {fileID: 1124678607}
   Target: {fileID: 499856308}
   speed: 2
+  animator: {fileID: 0}
 --- !u!136 &1124678611
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1110,6 +1115,21 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1124678613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124678607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4609a451eebc2ab4ca4e1d4e5927744b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemy: {fileID: 1124678607}
+  Target: {fileID: 499856308}
+  speed: 2
 --- !u!1 &1710154783
 GameObject:
   m_ObjectHideFlags: 0
