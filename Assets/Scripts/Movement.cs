@@ -18,11 +18,11 @@ public class Movement : MonoBehaviour
 
     Vector3 velocity;
     bool isGrounded;
-    private Animator animator;
+    //private Animator animator;
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+       // animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -48,8 +48,8 @@ public class Movement : MonoBehaviour
         Vector3 move = transform.right * horizontal + transform.forward * vertical;
 
         // Animation
-        bool isWalking = move.magnitude > 0.01f;
-        animator.SetBool("isWalking", isWalking);
+        /*bool isWalking = move.magnitude > 0.01f;
+        animator.SetBool("isWalking", isWalking);*/
 
         // Sprint
         float currentSpeed = movementSpeed;
