@@ -1,7 +1,4 @@
-// Genshin-style Lake Water — Unity Standard Surface Shader (CG/HLSL)
-// Built-in Render Pipeline — Fully Fixed Version
-
-Shader "Custom/GenshinLakeWater_Surface"
+Shader "Custom/URP_GenshinLakeWater"
 {
     Properties
     {
@@ -28,107 +25,163 @@ Shader "Custom/GenshinLakeWater_Surface"
 
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Transparent" }
-        LOD 200
+        Tags
+        {
+            "RenderType"="Transparent"
+            "Queue"="Transparent"
+            "RenderPipeline"="UniversalRenderPipeline"
+        }
+
         Blend SrcAlpha OneMinusSrcAlpha
-        Cull Off
         ZWrite Off
+        Cull Off
 
-        CGPROGRAM
-        #pragma surface surf Standard fullforwardshadows alpha:fade
-        #pragma target 3.0
-        #pragma vertex vert
-
-        sampler2D _NormalMap;
-
-        struct Input
+        Pass
         {
-            float2 uv_NormalMap;
-            float4 screenPos;
-            float3 worldPos;
-            float3 viewDir;
-        };
+            Name "ForwardLit"
+            Tags { "LightMode"="UniversalForward" }
 
-        float4 _BaseColor;
-        float4 _ShallowColor;
-        float4 _DeepColor;
-        float _DepthMax;
+            HLSLPROGRAM
 
-        float _NormalStrength;
-        float _WaveScale;
-        float _WaveSpeed;
+            #pragma vertex vert
+            #pragma fragment frag
 
-        float4 _FoamColor;
-        float _FoamThreshold;
-        float _FoamIntensity;
+            #pragma multi_compile_fog
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
+            #pragma multi_compile _ _ADDITIONAL_LIGHTS
+            #pragma multi_compile _ _SHADOWS_SOFT
 
-        half _Glossiness;
-        half _Metallic;
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
 
-        float _FresnelPower;
-        float _FresnelIntensity;
+            TEXTURE2D(_NormalMap);
+            SAMPLER(sampler_NormalMap);
 
-        UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
+            float4 _BaseColor;
+            float4 _ShallowColor;
+            float4 _DeepColor;
+            float _DepthMax;
 
-        // Vertex modifier
-        void vert(inout appdata_full v, out Input o)
-        {
-            UNITY_INITIALIZE_OUTPUT(Input, o);
-            o.screenPos = UnityObjectToClipPos(v.vertex);
-            o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
-            o.uv_NormalMap = v.texcoord;
-            o.viewDir = normalize(_WorldSpaceCameraPos - o.worldPos);
+            float _NormalStrength;
+            float _WaveScale;
+            float _WaveSpeed;
+
+            float4 _FoamColor;
+            float _FoamThreshold;
+            float _FoamIntensity;
+
+            float _Glossiness;
+            float _Metallic;
+
+            float _FresnelPower;
+            float _FresnelIntensity;
+
+            struct Attributes
+            {
+                float4 positionOS : POSITION;
+                float2 uv         : TEXCOORD0;
+                float3 normalOS   : NORMAL;
+            };
+
+            struct Varyings
+            {
+                float4 positionHCS : SV_POSITION;
+                float2 uv          : TEXCOORD0;
+                float3 normalWS    : TEXCOORD1;
+                float3 posWS       : TEXCOORD2;
+                float3 viewDirWS   : TEXCOORD3;
+                float4 screenPos   : TEXCOORD4;
+            };
+
+            Varyings vert(Attributes IN)
+            {
+                Varyings OUT;
+
+                OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
+                OUT.posWS       = TransformObjectToWorld(IN.positionOS.xyz);
+                OUT.normalWS    = TransformObjectToWorldNormal(IN.normalOS);
+                OUT.uv          = IN.uv;
+                OUT.viewDirWS   = GetWorldSpaceViewDir(OUT.posWS);
+
+                OUT.screenPos   = ComputeScreenPos(OUT.positionHCS);
+
+                return OUT;
+            }
+
+            float4 frag(Varyings IN) : SV_Target
+            {
+                float time = _Time.y;
+
+                // Scrolling wave normalmap (Genshin-style)
+                float2 flowUV =
+                    IN.uv * _WaveScale +
+                    float2(time * _WaveSpeed, -time * _WaveSpeed * 0.6);
+
+                float3 normal = UnpackNormal(
+                    SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, flowUV)
+                );
+                normal.xy *= _NormalStrength;
+                normal = normalize(normal);
+
+                float3 normalWS = normalize(IN.normalWS);
+                float3 viewDir  = normalize(IN.viewDirWS);
+
+                //---------------------------------------------------------
+                // Depth sampling (correct URP version)
+                //---------------------------------------------------------
+                float2 screenUV = IN.screenPos.xy / IN.screenPos.w;
+
+                float rawSceneDepth = SampleSceneDepth(screenUV);
+                float sceneDepth01  = Linear01Depth(rawSceneDepth, _ZBufferParams);
+
+                float pixelRawDepth = IN.positionHCS.z / IN.positionHCS.w;
+                float pixelDepth01  = Linear01Depth(pixelRawDepth, _ZBufferParams);
+
+                float depthDiff = saturate((sceneDepth01 - pixelDepth01) / max(_DepthMax, 0.001));
+
+                //---------------------------------------------------------
+                // Depth â†’ Color gradient (deep â†’ shallow â†’ base tint)
+                //---------------------------------------------------------
+                float3 waterColor = lerp(_DeepColor.rgb, _ShallowColor.rgb, depthDiff);
+                waterColor = lerp(waterColor, _BaseColor.rgb, 0.28);
+
+                //---------------------------------------------------------
+                // Fresnel
+                //---------------------------------------------------------
+                float NdotV = saturate(dot(normalWS, viewDir));
+                float fresnel = pow(1 - NdotV, _FresnelPower) * _FresnelIntensity;
+
+                //---------------------------------------------------------
+                // Shoreline foam
+                //---------------------------------------------------------
+                float foamMask = smoothstep(
+                    _FoamThreshold - 0.05,
+                    _FoamThreshold + 0.05,
+                    depthDiff
+                );
+
+                float3 foam = _FoamColor.rgb * foamMask * _FoamIntensity;
+
+                //---------------------------------------------------------
+                // Lighting (basic URP main light)
+                //---------------------------------------------------------
+                Light mainLight = GetMainLight();
+                float3 L = mainLight.direction;
+                float NdotL = saturate(dot(normalWS, L));
+
+                float3 litColor = waterColor * (0.3 + NdotL * 0.7);
+
+                //---------------------------------------------------------
+                // Final Color
+                //---------------------------------------------------------
+                float3 finalCol = litColor + foam * 0.25 + fresnel * 0.25;
+                float alpha = saturate(0.85 + foamMask * 0.15);
+
+                return float4(finalCol, alpha);
+            }
+
+            ENDHLSL
         }
-
-        // Correct depth sampling (Surface Shader safe)
-        inline float SampleLinearCameraDepth(float4 screenPos)
-        {
-            float raw = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(screenPos));
-            return Linear01Depth(raw);
-        }
-
-        void surf(Input IN, inout SurfaceOutputStandard o)
-        {
-            // Animated normal map
-            float time = _Time.y;
-            float2 flowUV =
-                IN.uv_NormalMap * _WaveScale +
-                float2(time * _WaveSpeed, -time * _WaveSpeed * 0.6);
-
-            float3 normalT = UnpackNormal(tex2D(_NormalMap, flowUV));
-            normalT.xy *= _NormalStrength;
-            o.Normal = normalize(normalT);
-
-            // Depth-based shading
-            float sceneDepth = SampleLinearCameraDepth(IN.screenPos);
-
-            float rawPixel = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(IN.screenPos));
-            float pixelDepth = Linear01Depth(rawPixel);
-
-            float depthDiff = saturate((sceneDepth - pixelDepth) / max(0.0001, _DepthMax));
-            float shallowFactor = depthDiff;
-
-            float3 waterColor = lerp(_DeepColor.rgb, _ShallowColor.rgb, shallowFactor);
-            waterColor = lerp(waterColor, _BaseColor.rgb, 0.28);
-
-            // Fresnel highlight
-            float NdotV = saturate(dot(o.Normal, IN.viewDir));
-            float fresnel = pow(1.0 - NdotV, _FresnelPower) * _FresnelIntensity;
-
-            // Foam (shoreline)
-            float foamMask = smoothstep(_FoamThreshold - 0.05, _FoamThreshold + 0.05, shallowFactor);
-            float3 foam = _FoamColor.rgb * foamMask * _FoamIntensity;
-
-            // Final output
-            o.Albedo = waterColor + foam * 0.25;
-            o.Metallic = _Metallic;
-            o.Smoothness = _Glossiness;
-            o.Emission = fresnel * 0.25;
-
-            o.Alpha = saturate(0.85 + foamMask * 0.15);
-        }
-        ENDCG
     }
-
-    FallBack "Transparent/VertexLit"
 }
