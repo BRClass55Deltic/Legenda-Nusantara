@@ -11,14 +11,14 @@ public class Movement : MonoBehaviour
     public float groundDistance = 0.3f;
     public LayerMask groundMask;
 
-    // ==== CROUCH ====
+    // Crouch
     public bool isCrouching = false;
     public float standHeight = 1.8f;
     public float crouchHeight = 1.0f;
     public float crouchSpeed = 2.5f;
     private float originalSpeed;
 
-    // ==== SPRINT ====
+    // Sprint
     public float sprintSpeed = 8f;
     private bool sprinting = false;
     private float currentSpeed;
@@ -44,7 +44,6 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        // ==== CEK GROUND ====
         isGrounded = Physics.CheckSphere(
             transform.position + Vector3.down * 0.1f,
             groundDistance,
@@ -54,25 +53,20 @@ public class Movement : MonoBehaviour
         if (isGrounded && velocity.y < 0)
             velocity.y = -2f;
 
-        // ==== INPUT PC ====
         float horizontal = Input.GetAxisRaw("Horizontal");   // A / D
         float vertical = Input.GetAxisRaw("Vertical");       // W / S
 
         Vector3 inputDir = new Vector3(horizontal, 0, vertical);
         bool isMoving = inputDir.sqrMagnitude > 0.01f;
 
-        // NON-CROUCH WALK
         bool isWalking = !isCrouching && isMoving;
         animator.SetBool("isWalking", isWalking);
 
-        // CROUCH WALK
         bool isCrouchWalking = isCrouching && isMoving;
         animator.SetBool("isCrouchWalking", isCrouchWalking);
 
-        // ==== SPRINT LOGIC ====
         currentSpeed = moveSpeed;
 
-        // Shift untuk sprint
         if (Input.GetKey(KeyCode.LeftShift) && vertical > 0 && !isCrouching)
         {
             sprinting = true;
@@ -87,7 +81,6 @@ public class Movement : MonoBehaviour
         if (sprinting)
             currentSpeed = sprintSpeed;
 
-        // ==== MOVEMENT ====
         if (isMoving)
         {
             Vector3 camForward = cam.forward;
@@ -111,7 +104,6 @@ public class Movement : MonoBehaviour
             );
         }
 
-        // ==== JUMP ====
         if (!isCrouching && Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -121,20 +113,16 @@ public class Movement : MonoBehaviour
         if (isGrounded)
             animator.SetBool("isJumping", false);
 
-        // ==== GRAVITY ====
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        // ==== CROUCH ====
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             ToggleCrouch();
         }
     }
 
-    // ============================
-    // ==== TOGGLE CROUCHING =====
-    // ============================
+
     void ToggleCrouch()
     {
         isCrouching = !isCrouching;
@@ -145,7 +133,6 @@ public class Movement : MonoBehaviour
             moveSpeed = crouchSpeed;
             animator.SetBool("isCrouching", true);
 
-            // Matikan sprint saat crouch
             sprinting = false;
         }
         else

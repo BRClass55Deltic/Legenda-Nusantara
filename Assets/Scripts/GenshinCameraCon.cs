@@ -12,12 +12,12 @@ public class GenshinCameraCon : MonoBehaviour
     public float maxY = 60f;
 
     public Vector3 editorOffset;
-    public RectTransform touchArea; // panel kamera
+    public RectTransform touchArea; 
 
     float rotX;
     float rotY;
 
-    bool dragging = false; // apakah sedang drag pada area kamera
+    bool dragging = false; 
 
     void Start()
     {
@@ -33,7 +33,6 @@ public class GenshinCameraCon : MonoBehaviour
         HandleMouseInput();
         HandleTouchInput();
 
-        // APPLY CAMERA
         Quaternion rot = Quaternion.Euler(rotY, rotX, 0);
         Vector3 cameraBackOffset = rot * new Vector3(0, 0, -distance);
 
@@ -41,9 +40,7 @@ public class GenshinCameraCon : MonoBehaviour
         transform.rotation = rot;
     }
 
-    // =============================
-    //         MOUSE LOGIC
-    // =============================
+ 
     void HandleMouseInput()
     {
         // Start drag jika klik di dalam panel
@@ -53,11 +50,11 @@ public class GenshinCameraCon : MonoBehaviour
                 dragging = true;
         }
 
-        // stop drag
-        if (Input.GetMouseButtonUp(0))
+
+        if (Input.GetMouseButtonUp(1))
             dragging = false;
 
-        // rotate camera hanya jika sedang drag di panel
+
         if (dragging && Input.GetMouseButton(0))
         {
             float mouseX = Input.GetAxis("Mouse X");
@@ -69,9 +66,7 @@ public class GenshinCameraCon : MonoBehaviour
         }
     }
 
-    // =============================
-    //         MOBILE LOGIC
-    // =============================
+
     void HandleTouchInput()
     {
         if (Input.touchCount == 0) return;
