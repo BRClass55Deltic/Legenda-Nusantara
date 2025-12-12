@@ -3471,7 +3471,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 799a316ba3cb05348b064fb081ec40e8, type: 3}
 --- !u!4 &353440495 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4053337626520967027, guid: 799a316ba3cb05348b064fb081ec40e8,
+  m_CorrespondingSourceObject: {fileID: 4208587669295724822, guid: 799a316ba3cb05348b064fb081ec40e8,
     type: 3}
   m_PrefabInstance: {fileID: 353440494}
   m_PrefabAsset: {fileID: 0}
@@ -4680,8 +4680,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RedGem: {fileID: 523783100}
-  GreenGem: {fileID: 353440495}
-  BlueGem: {fileID: 1746092623}
+  GreenGem: {fileID: 0}
+  BlueGem: {fileID: 0}
   redSpawns:
   - {fileID: 1760570227}
   - {fileID: 22308455}
@@ -16023,7 +16023,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 3b533eca6f1bbad479e0b458328379a0, type: 3}
 --- !u!4 &1746092623 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4208587669295724822, guid: 3b533eca6f1bbad479e0b458328379a0,
+  m_CorrespondingSourceObject: {fileID: 4053337626520967027, guid: 3b533eca6f1bbad479e0b458328379a0,
     type: 3}
   m_PrefabInstance: {fileID: 1746092622}
   m_PrefabAsset: {fileID: 0}
@@ -16742,7 +16742,7 @@ Transform:
   m_GameObject: {fileID: 1831936004}
   serializedVersion: 2
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 376, y: 53.4, z: 200}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
