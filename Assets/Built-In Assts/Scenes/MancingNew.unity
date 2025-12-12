@@ -9513,6 +9513,11 @@ PrefabInstance:
       objectReference: {fileID: 1635306645}
     - target: {fileID: 5987453923590944744, guid: 4e3290143783c634186a6a993dc817d7,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5987453923590944744, guid: 4e3290143783c634186a6a993dc817d7,
+        type: 3}
       propertyPath: jumpButton
       value: 
       objectReference: {fileID: 1902359019}
@@ -9561,7 +9566,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6560906787422563037, guid: 4e3290143783c634186a6a993dc817d7,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7355135401790393502}
+      addedObject: {fileID: 7355135401790393508}
     - targetCorrespondingSourceObject: {fileID: 6560906787422563037, guid: 4e3290143783c634186a6a993dc817d7,
         type: 3}
       insertIndex: -1
@@ -9598,7 +9603,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7355135401790393502
+--- !u!114 &7355135401790393505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843527863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e053a044dc3a531429878c25279c223b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionRange: 2.5
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!114 &7355135401790393508
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9623,22 +9644,6 @@ MonoBehaviour:
   crouchHeight: 1
   crouchSpeed: 2.5
   sprintSpeed: 8
---- !u!114 &7355135401790393505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1843527863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e053a044dc3a531429878c25279c223b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionRange: 2.5
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
