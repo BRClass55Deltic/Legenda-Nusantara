@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GrassGenshin
+  m_Name: GrassGenshinBush
   m_Shader: {fileID: 4800000, guid: 352600f36060e604c927b54ad5fee3b7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -115,10 +115,10 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.2742669, g: 0.7132075, b: 0.25164112, a: 1}
+    - _BaseColor: {r: 0.06574356, g: 0.4415095, b: 0.052481294, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RimColor: {r: 0.15052326, g: 0.9169811, b: 0.163587, a: 1}
+    - _RimColor: {r: 0.014788169, g: 0.2528302, b: 0.04276448, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _WindDirection: {r: 1, g: 0, b: 1, a: 0}
   m_BuildTextureStacks: []
