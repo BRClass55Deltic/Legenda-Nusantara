@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2703400359617249213
+--- !u!1 &2842659674771740887
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4518124529825523827}
-  - component: {fileID: 7312265079865012892}
-  - component: {fileID: 4475340387683452127}
-  - component: {fileID: 724135306324640789}
+  - component: {fileID: 7779719830137922846}
+  - component: {fileID: 4691846417298259937}
+  - component: {fileID: 1156240705132530625}
+  - component: {fileID: 4590767661529096637}
   m_Layer: 0
-  m_Name: Rock_Slate
+  m_Name: Fishing Shack_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4518124529825523827
+--- !u!4 &7779719830137922846
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2703400359617249213}
+  m_GameObject: {fileID: 2842659674771740887}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 23.695124, y: 2.01, z: 2.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.4090622, y: 0.4090619, z: -0.5767741, w: -0.57677394}
+  m_LocalPosition: {x: 60.52, y: 11.45, z: 53.28}
+  m_LocalScale: {x: 1, y: 0.09103213, z: 0.39999998}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7312265079865012892
+  m_LocalEulerAnglesHint: {x: 0, y: 289.31, z: 90}
+--- !u!33 &4691846417298259937
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2703400359617249213}
-  m_Mesh: {fileID: -9032557090061056480, guid: 557abc2ce340dca44847b766b8a90be6, type: 3}
---- !u!23 &4475340387683452127
+  m_GameObject: {fileID: 2842659674771740887}
+  m_Mesh: {fileID: -8663055497601912706, guid: 52a2970e36aac3d47b07af3c22e214bc, type: 3}
+--- !u!23 &1156240705132530625
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2703400359617249213}
+  m_GameObject: {fileID: 2842659674771740887}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -62,12 +62,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3a23920e14f2fd542a718dd66c3ddc45, type: 2}
-  - {fileID: 2100000, guid: 3a23920e14f2fd542a718dd66c3ddc45, type: 2}
-  - {fileID: 2100000, guid: 3a23920e14f2fd542a718dd66c3ddc45, type: 2}
-  - {fileID: 2100000, guid: 3a23920e14f2fd542a718dd66c3ddc45, type: 2}
-  - {fileID: 2100000, guid: 3a23920e14f2fd542a718dd66c3ddc45, type: 2}
-  - {fileID: 2100000, guid: 3a23920e14f2fd542a718dd66c3ddc45, type: 2}
+  - {fileID: 2100000, guid: 074f595381090b64182f92fe221a1c67, type: 2}
+  - {fileID: 2100000, guid: 074f595381090b64182f92fe221a1c67, type: 2}
+  - {fileID: 2100000, guid: 074f595381090b64182f92fe221a1c67, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -89,13 +86,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &724135306324640789
+--- !u!64 &4590767661529096637
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2703400359617249213}
+  m_GameObject: {fileID: 2842659674771740887}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -110,4 +107,4 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -9032557090061056480, guid: 557abc2ce340dca44847b766b8a90be6, type: 3}
+  m_Mesh: {fileID: -8663055497601912706, guid: 52a2970e36aac3d47b07af3c22e214bc, type: 3}

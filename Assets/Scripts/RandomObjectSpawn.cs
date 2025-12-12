@@ -25,8 +25,8 @@ public class RandomObjectSpawn : MonoBehaviour
         GreenGem.position = greenSpawns[greenIndex].position;
     
         // Blue
-        /*int indexNumber = Random.Range(0, blueSpawns.Length);
-        BlueGem.position = blueSpawns[indexNumber].position;*/
+        int indexNumber = Random.Range(0, blueSpawns.Length);
+        BlueGem.position = blueSpawns[indexNumber].position;
 
 
     }
