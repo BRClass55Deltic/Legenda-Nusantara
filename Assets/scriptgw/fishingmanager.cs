@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -69,7 +69,7 @@ public class FishingManager : MonoBehaviour
     void Update()
     {
         // Jika sudah punya pancingan, tekan F untuk aksi
-        if (hasRod && Input.GetKeyDown(KeyCode.F))
+        if (IsRodEquipped() && Input.GetKeyDown(KeyCode.F))
         {
             OnActionPress();
         }
@@ -78,15 +78,22 @@ public class FishingManager : MonoBehaviour
     public void PickupRod()
     {
         hasRod = true;
-        pickupRodObject.SetActive(false); 
-        
+        pickupRodObject.SetActive(false);
+
         realRodObject.SetActive(true);
         realRodObject.transform.SetParent(playerTransform);
         realRodObject.transform.localPosition = rodEquippedOffset;
-        realRodObject.transform.localRotation = Quaternion.identity; 
-        
-        fishingUIContainer.SetActive(true); 
+        realRodObject.transform.localRotation = Quaternion.identity;
+
+        fishingUIContainer.SetActive(true);
         ResetFishingState();
+
+        // 🔥 PINDAH KE FPS CAMERA (HANYA INI!)
+        CameraModeManager camManager = FindObjectOfType<CameraModeManager>();
+        if (camManager != null)
+        {
+            camManager.SwitchToFirstPerson();
+        }
     }
 
     // Fungsi Utama (Dipanggil oleh Tombol F atau Klik UI)
@@ -275,7 +282,7 @@ public class FishingManager : MonoBehaviour
 
     public void SetFishingAreaActive(bool isActive)
     {
-        if (hasRod)
+        if (IsRodEquipped())
         {
             if (isActive)
             {
@@ -291,8 +298,32 @@ public class FishingManager : MonoBehaviour
                 realRodObject.SetActive(false);
                 fishingUIContainer.SetActive(false);
                 if (isFishing) StopFishing();
+
+                // 🔥 REAL ROD HILANG → BALIK KE TPS
+                SwitchBackToTPS();
             }
         }
-        if (!hasRod && pickupRodObject != null) pickupRodObject.SetActive(isActive);
+        else
+        {
+            if (pickupRodObject != null)
+                pickupRodObject.SetActive(isActive);
+
+            // 🔥 TIDAK ADA REAL ROD → TPS
+            SwitchBackToTPS();
+        }
     }
+
+    void SwitchBackToTPS()
+    {
+        CameraModeManager camManager = FindObjectOfType<CameraModeManager>();
+        if (camManager != null)
+        {
+            camManager.SwitchToThirdPerson();
+        }
+    }
+    bool IsRodEquipped()
+    {
+        return realRodObject != null && realRodObject.activeSelf;
+    }
+
 }
