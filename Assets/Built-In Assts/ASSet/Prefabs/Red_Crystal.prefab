@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 2845996971846621335}
   - component: {fileID: 4898516750439371689}
   - component: {fileID: 3135763559561140304}
+  - component: {fileID: -5422659272884514220}
+  - component: {fileID: 7611228509047438495}
   m_Layer: 0
   m_Name: Red_Crystal
   m_TagString: Untagged
@@ -83,3 +85,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-5422659272884514220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9069860138421771628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1c0deb4009bd1548bf1210ce305665f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crystalManager: {fileID: 0}
+--- !u!65 &7611228509047438495
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9069860138421771628}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.04738385, y: 0.105578735, z: 0.04022856}
+  m_Center: {x: 0.000026818365, y: 0.0010972861, z: 0.0010913275}
