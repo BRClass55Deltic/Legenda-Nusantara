@@ -122,15 +122,7 @@ public class MobilePlayerController : MonoBehaviour
             );
         }
 
-        // Jumping, not used
-        if (!isCrouching && jumpButton.pressed && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            animator.SetBool("isJumping", true);
-        }
-
-        if (isGrounded)
-            animator.SetBool("isJumping", false);
+        // Jumping, not use
 
         
         velocity.y += gravity * Time.deltaTime;
