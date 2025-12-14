@@ -83,6 +83,12 @@ public class Chasing : MonoBehaviour
             if (caughtCamera != null) caughtCamera.enabled = true;
 
             boo.SetActive(true);
-        }
+
+            AudioManager audioManager = FindObjectOfType<AudioManager>();
+            if (audioManager != null)
+                {
+                    audioManager.StopLoopSFX();
+                }
+            }
     }
 }
