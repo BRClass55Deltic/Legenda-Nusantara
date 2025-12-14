@@ -144,6 +144,9 @@ public class Movement : MonoBehaviour
     // =================================================
     public void PlayFootstep()
     {
+        Debug.Log("FOOTSTEP DIPANGGIL");
+
+        
         if (audioManager == null || !isGrounded)
             return;
 
