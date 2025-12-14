@@ -17,28 +17,22 @@ public class AudioManager : MonoBehaviour
     public AudioClip runSFX;
     public AudioClip woodSFX;
     public AudioClip woodRunSFX;
-    //public AudioClip winSFX;
     public AudioClip jumpScareSFX;
 
-    private void Start()
+    // =========================
+    // LOOP SFX (FOOTSTEP)
+    // =========================
+    public void PlayLoopSFX(AudioClip clip, float pitch = 1f)
     {
-       /* BackgroundSource.clip = BackgroundMusic;
-        BackgroundSource.Play(); */
-    }
-    public void PlaySFX(AudioClip clip)
-    {
-        SFXSource.pitch = Random.Range(0.9f, 1.1f);
-        SFXSource.PlayOneShot(clip);
-    }
+        if (clip == null) return;
 
-    public void PlayLoopSFX(AudioClip clip)
-    {
         if (SFXSource.clip == clip && SFXSource.isPlaying)
             return;
 
+        SFXSource.Stop();
         SFXSource.clip = clip;
         SFXSource.loop = true;
-        SFXSource.pitch = Random.Range(0.95f, 1.05f);
+        SFXSource.pitch = pitch;
         SFXSource.Play();
     }
 
@@ -50,13 +44,27 @@ public class AudioManager : MonoBehaviour
             SFXSource.clip = null;
         }
     }
+    // =========================
+    // ONE SHOT (NON LOOP)
+    // =========================
+    public void PlaySFX(AudioClip clip)
+    {
+        if (clip == null) return;
+        SFXSource.PlayOneShot(clip);
+    }
 
+    // =========================
+    // MUSIC
+    // =========================
     public void PlayBackgroundMusic(AudioClip clip)
     {
+        if (clip == null) return;
+
         BackgroundSource.clip = clip;
+        BackgroundSource.loop = true;
         BackgroundSource.Play();
     }
-    
+
     public void StopBackgroundMusic()
     {
         BackgroundSource.Stop();
@@ -65,31 +73,16 @@ public class AudioManager : MonoBehaviour
     public void PlayWinMusic()
     {
         StopBackgroundMusic();
-        if (winMusic != null)
-        {
-            BackgroundSource.clip = winMusic;
-            BackgroundSource.loop = false; // only play once
-            BackgroundSource.Play();
-        }
-        else
-        {
-            Debug.LogWarning("No winMusic assigned in AudioManager!");
-        }
+        BackgroundSource.clip = winMusic;
+        BackgroundSource.loop = false;
+        BackgroundSource.Play();
     }
 
     public void PlayDefeatMusic()
     {
         StopBackgroundMusic();
-
-        if (defeatMusic != null)
-        {
-            BackgroundSource.clip = defeatMusic;
-            BackgroundSource.loop = false;
-            BackgroundSource.Play();
-        }
-        else
-        {
-            Debug.LogWarning("No defeatMusic assigned in AudioManager!");
-        }
+        BackgroundSource.clip = defeatMusic;
+        BackgroundSource.loop = false;
+        BackgroundSource.Play();
     }
 }

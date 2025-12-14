@@ -4,46 +4,52 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    [Header("Movement")]
     public float moveSpeed = 5f;
+    public float sprintSpeed = 8f;
+    public float crouchSpeed = 2.5f;
     public float rotationSpeed = 10f;
-    public float jumpHeight = 2f;
+
+    [Header("Gravity")]
     public float gravity = -9.81f;
     public float groundDistance = 0.3f;
     public LayerMask groundMask;
 
-    // Crouch
-    public bool isCrouching = false;
+    [Header("Crouch")]
     public float standHeight = 1.8f;
     public float crouchHeight = 1.0f;
-    public float crouchSpeed = 2.5f;
-    private float originalSpeed;
+    public bool isCrouching = false;
 
-    // Sprint
-    public float sprintSpeed = 8f;
-    private bool sprinting = false;
+    private float originalSpeed;
     private float currentSpeed;
+    private bool sprinting;
 
     private CharacterController controller;
     private Transform cam;
+    private Animator animator;
+    private AudioManager audioManager;
 
     private Vector3 velocity;
     private Vector3 direction;
-
     private bool isGrounded;
-    private Animator animator;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         cam = Camera.main.transform;
         animator = GetComponentInChildren<Animator>();
+        audioManager = FindObjectOfType<AudioManager>();
 
         originalSpeed = moveSpeed;
         currentSpeed = moveSpeed;
+
+        if (audioManager == null)
+            Debug.LogWarning("AudioManager tidak ditemukan!");
     }
 
     void Update()
     {
+        // ===== GROUND CHECK =====
         isGrounded = Physics.CheckSphere(
             transform.position + Vector3.down * 0.1f,
             groundDistance,
@@ -53,34 +59,38 @@ public class Movement : MonoBehaviour
         if (isGrounded && velocity.y < 0)
             velocity.y = -2f;
 
-        float horizontal = Input.GetAxisRaw("Horizontal");   // A / D
-        float vertical = Input.GetAxisRaw("Vertical");       // W / S
+        // ===== INPUT =====
+        float horizontal = Input.GetAxisRaw("Horizontal"); // A / D
+        float vertical = Input.GetAxisRaw("Vertical");     // W / S
 
         Vector3 inputDir = new Vector3(horizontal, 0, vertical);
         bool isMoving = inputDir.sqrMagnitude > 0.01f;
 
-        bool isWalking = !isCrouching && isMoving;
-        animator.SetBool("isWalking", isWalking);
+        // ===== CROUCH =====
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            ToggleCrouch();
+        }
 
-        bool isCrouchWalking = isCrouching && isMoving;
-        animator.SetBool("isCrouchWalking", isCrouchWalking);
-
-        currentSpeed = moveSpeed;
-
+        // ===== SPRINT =====
         if (Input.GetKey(KeyCode.LeftShift) && vertical > 0 && !isCrouching)
         {
             sprinting = true;
-            animator.SetBool("isRunning", true);
+            currentSpeed = sprintSpeed;
         }
         else
         {
             sprinting = false;
-            animator.SetBool("isRunning", false);
+            currentSpeed = moveSpeed;
         }
 
-        if (sprinting)
-            currentSpeed = sprintSpeed;
+        // ===== ANIMATOR =====
+        animator.SetBool("isWalking", isMoving && !isCrouching && !sprinting);
+        animator.SetBool("isRunning", isMoving && sprinting);
+        animator.SetBool("isCrouchWalking", isMoving && isCrouching);
+        animator.SetBool("isCrouching", isCrouching);
 
+        // ===== MOVEMENT =====
         if (isMoving)
         {
             Vector3 camForward = cam.forward;
@@ -104,25 +114,14 @@ public class Movement : MonoBehaviour
             );
         }
 
-        if (!isCrouching && Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            animator.SetBool("isJumping", true);
-        }
-
-        if (isGrounded)
-            animator.SetBool("isJumping", false);
-
+        // ===== GRAVITY (WAJIB ADA) =====
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            ToggleCrouch();
-        }
     }
 
-
+    // =========================
+    // ===== CROUCH LOGIC ======
+    // =========================
     void ToggleCrouch()
     {
         isCrouching = !isCrouching;
@@ -131,15 +130,30 @@ public class Movement : MonoBehaviour
         {
             controller.height = crouchHeight;
             moveSpeed = crouchSpeed;
-            animator.SetBool("isCrouching", true);
-
             sprinting = false;
         }
         else
         {
             controller.height = standHeight;
             moveSpeed = originalSpeed;
-            animator.SetBool("isCrouching", false);
+        }
+    }
+
+    // =================================================
+    // ===== FOOTSTEP (DIPANGGIL DARI ANIMATION EVENT) ==
+    // =================================================
+    public void PlayFootstep()
+    {
+        if (audioManager == null || !isGrounded)
+            return;
+
+        if (sprinting)
+        {
+            audioManager.PlaySFX(audioManager.runSFX);
+        }
+        else
+        {
+            audioManager.PlaySFX(audioManager.WalkSFX);
         }
     }
 }

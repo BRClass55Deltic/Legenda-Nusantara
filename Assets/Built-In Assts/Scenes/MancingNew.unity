@@ -6510,6 +6510,79 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.025555627, y: 0.025320122, z: 0.55066323}
   m_Center: {x: 0.00051075727, y: 0.0000000032596297, z: 0.039817672}
+--- !u!1001 &1541291914
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3077064076383966210, guid: 10a31c58aad6f5342910c7eea08ea9fe,
+        type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260340142499988023, guid: 10a31c58aad6f5342910c7eea08ea9fe,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310324119629193889, guid: 10a31c58aad6f5342910c7eea08ea9fe,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -90.514984
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310324119629193889, guid: 10a31c58aad6f5342910c7eea08ea9fe,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -453.36743
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310324119629193889, guid: 10a31c58aad6f5342910c7eea08ea9fe,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.625984
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310324119629193889, guid: 10a31c58aad6f5342910c7eea08ea9fe,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310324119629193889, guid: 10a31c58aad6f5342910c7eea08ea9fe,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310324119629193889, guid: 10a31c58aad6f5342910c7eea08ea9fe,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310324119629193889, guid: 10a31c58aad6f5342910c7eea08ea9fe,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310324119629193889, guid: 10a31c58aad6f5342910c7eea08ea9fe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310324119629193889, guid: 10a31c58aad6f5342910c7eea08ea9fe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310324119629193889, guid: 10a31c58aad6f5342910c7eea08ea9fe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 10a31c58aad6f5342910c7eea08ea9fe, type: 3}
 --- !u!1 &1555364651
 GameObject:
   m_ObjectHideFlags: 0
@@ -9626,28 +9699,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1843527863}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df55f9a1bfd4cde4dae3095c038cefa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  sprintSpeed: 8
   rotationSpeed: 10
-  jumpHeight: 2
   gravity: -9.81
-  groundDistance: 0.3
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 8
   isCrouching: 0
   standHeight: 1.8
   crouchHeight: 1
   crouchSpeed: 2.5
-  sprintSpeed: 8
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1541291914}
   - {fileID: 762449838}
   - {fileID: 1918072539}
   - {fileID: 193133130}
