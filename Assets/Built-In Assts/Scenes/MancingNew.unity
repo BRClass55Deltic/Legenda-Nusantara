@@ -274,7 +274,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -375.75446, y: 174.76761}
+  m_AnchoredPosition: {x: -346.2, y: 174.76761}
   m_SizeDelta: {x: 347.4936, y: 134.3146}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &9697312
@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -299,10 +299,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 25
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 3
     m_MaxSize: 181
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -4666,7 +4666,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -389.7552, y: 161.85062}
+  m_AnchoredPosition: {x: -334.8, y: 161.85062}
   m_SizeDelta: {x: 354.4896, y: 120.2988}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &996906609
@@ -4682,7 +4682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4691,11 +4691,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 5
+    m_MaxSize: 50
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -7828,13 +7828,13 @@ MonoBehaviour:
   pickupRodObject: {fileID: 1192623175}
   playerTransform: {fileID: 7355135401790393498}
   rodTipPoint: {fileID: 614158687}
-  fishCommonPrefab: {fileID: 14515452339309019, guid: 6aa9889ed31c69e4b8fcfb022851e378,
+  fishCommonPrefab: {fileID: 8848912004881509116, guid: 2aeb5c3a158bb9843b72617f4bb17afe,
     type: 3}
-  fishRarePrefab: {fileID: 3796876394774053779, guid: a2da8604e34a80b48a777e444f768b32,
+  fishRarePrefab: {fileID: 2576910639401555240, guid: 38453c08482feef46925c63d2e9e6598,
     type: 3}
-  fishEpicPrefab: {fileID: 4008896349796841887, guid: 9c1482543a27a8446a9e2ee5de03919f,
+  fishEpicPrefab: {fileID: 4467626735616805598, guid: 561fcee6ad0370e419b4a02d7a126db1,
     type: 3}
-  fishSecretPrefab: {fileID: 1661803765512153476, guid: a709f55e7d1912a4982b7dbb0fa1dd09,
+  fishSecretPrefab: {fileID: 6817605226350521283, guid: 7eae7165760ea8e4392990af4666d35b,
     type: 3}
   rodEquippedOffset: {x: 0.5, y: 1, z: 1.5}
   bobberPrefab: {fileID: 3866506680497161091, guid: b350dbcc8bf5f534385aaa6eb9765c88,
