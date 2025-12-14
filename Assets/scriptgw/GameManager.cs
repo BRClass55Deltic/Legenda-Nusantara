@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ItemType { Wortel, Jahe, Kunyit, Kol, Ranting }
+public enum ItemType { Wortel }
+
 
 public class GameManager : MonoBehaviour
 {
@@ -23,11 +24,9 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        foreach (ItemType item in System.Enum.GetValues(typeof(ItemType)))
-        {
-            currentInventory.Add(item, 0);
-        }
+        currentInventory.Add(ItemType.Wortel, 0);
     }
+
 
     void Start()
     {
@@ -50,11 +49,12 @@ public class GameManager : MonoBehaviour
 
     public void GenerateNewMission()
     {
-        targetItem = (ItemType)Random.Range(0, 5);
-        targetAmount = Random.Range(1, 6);
+        targetItem = ItemType.Wortel;
+        targetAmount = Random.Range(1, 6); // jumlah masih random
         collectedAmount = 0;
         UpdateUI();
     }
+
 
     public void AddItem(ItemType item)
     {
