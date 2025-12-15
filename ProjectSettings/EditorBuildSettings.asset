@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Built-In Assts/Scenes/Level 2.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/Built-In Assts/Scenes/Transisi 2 ke 3.unity
+    guid: 35fa1ed7ab2f88d47990701b4c0cf179
+  - enabled: 1
     path: Assets/Built-In Assts/Scenes/Level 3.unity
     guid: 37880e6b5c69868448414a9f3a39b0f7
   - enabled: 1
