@@ -18,6 +18,7 @@ public class ActivateButoIjo : MonoBehaviour
             if (butoIjo != null)
             {
                 butoIjo.SetActive(true);
+                Debug.Log("SPAWNED");
             }
         }
     }
