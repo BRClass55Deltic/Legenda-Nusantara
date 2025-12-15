@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2535740673220652228}
   - component: {fileID: 294307383773093716}
   - component: {fileID: 4436471801990393187}
-  - component: {fileID: 3137186664489370240}
+  - component: {fileID: 2011424078619482660}
   m_Layer: 0
   m_Name: tronco
   m_TagString: Untagged
@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3343894212781832215}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.6742609, y: -0.2130065, z: -0.21300608, w: 0.6742618}
   m_LocalPosition: {x: 20.63, y: -0, z: 3.45}
   m_LocalScale: {x: 600, y: 600, z: 600}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -35.064}
 --- !u!33 &294307383773093716
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3137186664489370240
+--- !u!64 &2011424078619482660
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,6 +103,6 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7998806513205308417, guid: f7c137fd4175f6148b091fa11f18751a, type: 3}
