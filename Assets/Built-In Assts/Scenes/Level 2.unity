@@ -2583,7 +2583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b8da947fc9208747ab9792334ad2026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 6
   playerTag: Player
   mainCamera: {fileID: 330585545}
   caughtCamera: {fileID: 1740952111}
