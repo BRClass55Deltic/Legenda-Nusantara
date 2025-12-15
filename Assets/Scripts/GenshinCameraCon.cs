@@ -12,7 +12,8 @@ public class GenshinCameraCon : MonoBehaviour
     public float maxY = 60f;
 
     public Vector3 editorOffset;
-    public RectTransform touchArea; 
+    public RectTransform touchArea;
+    public bool lockInput = false;
 
     float rotX;
     float rotY;
@@ -30,8 +31,11 @@ public class GenshinCameraCon : MonoBehaviour
 
     void LateUpdate()
     {
-        HandleMouseInput();
-        HandleTouchInput();
+        if (!lockInput)
+        {
+            HandleMouseInput();
+            HandleTouchInput();
+        }
 
         Quaternion rot = Quaternion.Euler(rotY, rotX, 0);
         Vector3 cameraBackOffset = rot * new Vector3(0, 0, -distance);
@@ -40,7 +44,8 @@ public class GenshinCameraCon : MonoBehaviour
         transform.rotation = rot;
     }
 
- 
+
+
     void HandleMouseInput()
     {
         // Start drag jika klik di dalam panel
@@ -91,4 +96,31 @@ public class GenshinCameraCon : MonoBehaviour
             rotY = Mathf.Clamp(rotY, minY, maxY);
         }
     }
+
+    public IEnumerator RotateYTemporary(float angle, float speed, float delay)
+    {
+        lockInput = true;
+
+        float startRotX = rotX;
+        float targetRotX = rotX + angle;
+
+        // === ROTASI KE TARGET ===
+        while (Mathf.Abs(rotX - targetRotX) > 0.5f)
+        {
+            rotX = Mathf.MoveTowards(rotX, targetRotX, speed * Time.deltaTime);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(delay);
+
+        // === KEMBALI ===
+        while (Mathf.Abs(rotX - startRotX) > 0.5f)
+        {
+            rotX = Mathf.MoveTowards(rotX, startRotX, speed * Time.deltaTime);
+            yield return null;
+        }
+
+        lockInput = false;
+    }
+
 }

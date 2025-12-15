@@ -8503,12 +8503,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 025bef2e57e7f7548b78b7da71790890, type: 3}
---- !u!1 &707000715 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8190339224623422037, guid: 025bef2e57e7f7548b78b7da71790890,
+--- !u!114 &707000718 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7632113882061402058, guid: 025bef2e57e7f7548b78b7da71790890,
     type: 3}
   m_PrefabInstance: {fileID: 707000714}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3005f655c0a14c04cba4cc24684855ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &716926249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12219,6 +12225,7 @@ MonoBehaviour:
   maxY: 60
   editorOffset: {x: 0, y: 0, z: 0}
   touchArea: {fileID: 217872253}
+  lockInput: 0
 --- !u!1001 &1172321132
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14492,7 +14499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   butoIjo: {fileID: 254511788}
-  cameraObject: {fileID: 707000715}
+  genshinCamera: {fileID: 707000718}
   rotationSpeed: 360
   lookBackDelay: 0.5
 --- !u!65 &1389657452
