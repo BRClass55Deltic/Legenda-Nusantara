@@ -10897,6 +10897,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: buto ijo
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b86fa9b0d60e6c84da4fcf27f3f54be8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1016816838104557235, guid: b86fa9b0d60e6c84da4fcf27f3f54be8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -14420,7 +14425,7 @@ PrefabInstance:
     - target: {fileID: 1837776644436601797, guid: 461466fc3973e7c40a78f8175fbbf140,
         type: 3}
       propertyPath: sceneName
-      value: Level 3
+      value: Ending
       objectReference: {fileID: 0}
     - target: {fileID: 8334845406389507057, guid: 461466fc3973e7c40a78f8175fbbf140,
         type: 3}

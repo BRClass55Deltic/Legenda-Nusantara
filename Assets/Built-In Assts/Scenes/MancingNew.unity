@@ -9596,6 +9596,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Next Area Trigger
       objectReference: {fileID: 0}
+    - target: {fileID: 1837776644436601797, guid: 461466fc3973e7c40a78f8175fbbf140,
+        type: 3}
+      propertyPath: sceneName
+      value: Transisi 1 ke 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
