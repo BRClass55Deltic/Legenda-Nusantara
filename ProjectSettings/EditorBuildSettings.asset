@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Built-In Assts/Scenes/MainMenu.unity
+    guid: 33c9011731aaf684c8376e6a713805bf
+  - enabled: 1
+    path: Assets/Built-In Assts/Scenes/Gallery.unity
+    guid: 9b086e9f6e0a20346a65ed3d74e1b1a8
+  - enabled: 1
     path: Assets/Built-In Assts/Scenes/Prolog.unity
     guid: 45f4500ab274d1241a0d6b6f1826792e
   - enabled: 1
