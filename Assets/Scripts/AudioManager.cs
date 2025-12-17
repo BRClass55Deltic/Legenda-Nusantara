@@ -19,9 +19,17 @@ public class AudioManager : MonoBehaviour
     public AudioClip woodRunSFX;
     public AudioClip jumpScareSFX;
 
+    
+     private void Start()
+    {
+        BackgroundSource.clip = BackgroundMusic;
+        BackgroundSource.Play();
+    }
+    
     // =========================
     // LOOP SFX (FOOTSTEP)
     // =========================
+    
     public void PlayLoopSFX(AudioClip clip, float pitch = 1f)
     {
         if (clip == null) return;
