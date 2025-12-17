@@ -22188,6 +22188,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 843870942269543958, guid: 10a31c58aad6f5342910c7eea08ea9fe,
+        type: 3}
+      propertyPath: BackgroundMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 71ec744a99e15ba4aaeea5e9b44a5181, type: 3}
     - target: {fileID: 3077064076383966210, guid: 10a31c58aad6f5342910c7eea08ea9fe,
         type: 3}
       propertyPath: m_Name
